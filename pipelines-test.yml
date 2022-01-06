@@ -11,9 +11,14 @@ pipelines:
         configuration:
           inputResources:
             - name: incoming_webhook_artifact_deployed
+          integrations:
+            - name: artifactory_deployer
         execution:
           onStart:
             - echo "${res_incoming_webhook_artifact_deployed_payload}" > payload.json
           onExecute:
-            - read_json payload.json data.repo_key
-            - read_json payload.json data.path
+            - |
+              repoKey="$(read_json payload.json data.repo_key)"
+              path="$(read_json payload.json data.path)"
+              echo "Annotating ${repoKey}/${path}..."
+              jfrog rt set-props "${repoKey}/${path}" artifact.deployed.handled=true
