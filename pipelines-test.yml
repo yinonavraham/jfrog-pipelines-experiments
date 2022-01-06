@@ -15,5 +15,5 @@ pipelines:
           onStart:
             - echo "${res_incoming_webhook_artifact_deployed_payload}" > payload.json
           onExecute:
-            - read_json payload.json data.repoKey
+            - read_json payload.json data.repo_key
             - read_json payload.json data.path
