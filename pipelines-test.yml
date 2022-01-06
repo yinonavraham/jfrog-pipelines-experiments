@@ -12,7 +12,7 @@ pipelines:
           inputResources:
             - name: incoming_webhook_artifact_deployed
         execution:
-          osStart:
+          onStart:
             - echo "${res_incoming_webhook_artifact_deployed_payload}" > payload.json
           onExecute:
             - read_json payload.json data.repoKey
