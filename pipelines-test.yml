@@ -17,9 +17,6 @@ pipelines:
           onStart:
             - echo "${res_incoming_webhook_artifact_deployed_payload}" > payload.json
           onExecute:
-            - jfrog rt c show
-            - jfrog rt curl -XHEAD "${repoKey}/${path}"
-            - jfrog rt curl -XPUT "/api/storage/${repoKey}/${path}?properties=foo=bar"
             - |
               repoKey="$(read_json payload.json data.repo_key)"
               path="$(read_json payload.json data.path)"
