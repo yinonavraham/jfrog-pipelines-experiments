@@ -1,0 +1,16 @@
+resources:
+  - name: incoming_webhook_artifact_deployed
+    type: IncomingWebhook
+    configuration:
+      webhookName: incoming_webhook
+pipelines:
+  - name: on_artifact_deployed
+    steps:
+      - name: on_artifact_deployed
+        type: Bash
+        configuration:
+          inputResources:
+            - name: incoming_webhook_artifact_deployed
+        execution:
+          onExecute:
+            - echo "foo"
